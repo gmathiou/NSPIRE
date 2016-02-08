@@ -1,0 +1,17 @@
+<ion-view>
+    <ion-nav-title>Photos</ion-nav-title>
+  <ion-content>
+      <p>{{lat}}</p>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="photo in photos" type="item-text-wrap" href="#/tab/photo/{{photo.id}}">
+        <img ng-src="{{photo.image_url}}">
+        <h2>{{photo.name}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

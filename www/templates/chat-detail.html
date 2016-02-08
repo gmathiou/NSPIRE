@@ -1,0 +1,13 @@
+<ion-view>
+    <ion-nav-title>{{photo.name}}</ion-nav-title>
+    <ion-content class="padding">
+        <img ng-src="{{photo.image_url}}">
+        <h3>{{photo.name}}</h3>
+        <p>
+            {{photo.camera}}
+        </p>
+        <p>
+            {{photo.user.firstname}} {{photo.user.lastname}} 
+        </p>
+    </ion-content>
+</ion-view>
