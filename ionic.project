@@ -1,4 +1,12 @@
 {
   "name": "Nspire",
-  "app_id": "70612a67"
+  "app_id": "70612a67",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

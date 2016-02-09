@@ -11,7 +11,8 @@ fivehundred.service('FiveHundredService', function ($q, $http) {
             url: 'https://api.500px.com/v1/photos/search',
             params: {
                 'geo': coords.lat + ',' + coords.lon + ',' + km + 'km',
-                'sort':'_score',
+                'sort': '_score',
+                'image_size':440,
                 'consumer_key': self.consumer_Key
             }
         })
