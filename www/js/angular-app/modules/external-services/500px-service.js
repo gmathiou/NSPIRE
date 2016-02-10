@@ -12,7 +12,8 @@ fivehundred.service('FiveHundredService', function ($q, $http) {
             params: {
                 'geo': coords.lat + ',' + coords.lon + ',' + km + 'km',
                 'sort': '_score',
-                'image_size':440,
+                'image_size': 440,
+                'only': 'City and Architecture, Landscapes, Nature, Street, Urban Exploration',
                 'consumer_key': self.consumer_Key
             }
         })

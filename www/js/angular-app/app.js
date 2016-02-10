@@ -2,7 +2,7 @@
 
 var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo.single']);
 
-app.run(function ($ionicPlatform) {
+app.run(function ($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -11,10 +11,8 @@ app.run(function ($ionicPlatform) {
             cordova.plugins.Keyboard.disableScroll(true);
 
         }
-        if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            StatusBar.styleDefault();
-        }
+        $cordovaStatusbar.overlaysWebView(true)
+        $cordovaStatusBar.style(3) //Light
     });
 });
 

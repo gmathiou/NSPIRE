@@ -1,22 +1,13 @@
 <ion-view class="home">
     <ion-nav-title>Home</ion-nav-title>
     <ion-content>
-        <!--<ion-list>
-            <ion-item class="item-thumbnail-left" ng-repeat="photo in photos" type="item-text-wrap" ng-href="#/tab/home/photo/{{photo.id}}">
-                <img ng-src="{{photo.image_url}}">
-                <h2>{{photo.name}}</h2>
-                <p>{{photo.user.firstname}} {{photo.user.lastname}}</p>
-            </ion-item>
-        </ion-list>-->
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
         <div class="card" ng-repeat="photo in photos">
-            <ion-item class="item-avatar">
-
-                <img ng-src="{{photo.user.userpic_url}}" />
-
-                <h2>{{photo.name}}</h2>
-                <p>{{photo.user.firstname}} {{photo.user.lastname}}</p>
-            </ion-item>
             <ion-item class="item-image">
+                <div class="over-image">
+                    <h2 class="image-title">{{photo.name}}</h2>
+                    <p class="distance">{{distance(photo.latitude, photo.longitude) | number:1}} kilometers</p>
+                </div>
                 <a ng-href="#/tab/home/photo/{{photo.id}}">
                     <img ng-src="{{photo.image_url}}">
                 </a>

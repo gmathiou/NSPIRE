@@ -1,0 +1,19 @@
+.bar.bar-stable.bar-black {
+    border: none;
+    background: #111;
+    color: #fff;
+    
+    .title{
+        color:#fff;
+    }
+}
+
+.tabs-background-black .tabs {
+    border-top: 1px solid #cb3b3b !important;
+    background: #111 !important;
+}
+
+.tabs-background-black.tabs-top .tabs{
+        border-bottom: 1px solid #cb3b3b !important;
+        border-top: none  !important;
+    } 

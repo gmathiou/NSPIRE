@@ -1,3 +1,49 @@
 .home{
+    background:#111111; 
     
+    .card{
+        border-radius:0;
+        border:none;
+        
+        .item{
+            background:#0b1b22;
+            color:#fff;
+            border:none;
+            
+            .over-image {
+                position: absolute;
+                width: 100%;
+                text-align: left;
+                padding: 10px 10px 20px;
+                background: rgba(0,0,0,0.4);
+                background: -webkit-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0)); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0)); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0)); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0)); /* Standard syntax */
+                
+                .image-title{
+                    font-family: 'Open Sans Condensed', Arial, sans-serif;
+                    font-size: 24px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    margin:0;
+                }
+                
+                .distance{
+                    font-family: 'Open Sans', Arial, sans-serif;
+                    font-size: 14px;
+                    color:#fff;
+                }
+            }
+            
+            &:first-child, .list-inset .item:first-child{
+                border-radius:0;
+                border:none;
+            }
+            
+            h2{
+                color:#fff;
+            }
+        }
+    }
 }

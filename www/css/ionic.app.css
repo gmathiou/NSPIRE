@@ -9730,3 +9730,57 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.home {
+  background: #111111; }
+  .home .card {
+    border-radius: 0;
+    border: none; }
+    .home .card .item {
+      background: #0b1b22;
+      color: #fff;
+      border: none; }
+      .home .card .item .over-image {
+        position: absolute;
+        width: 100%;
+        text-align: left;
+        padding: 10px 10px 20px;
+        background: rgba(0, 0, 0, 0.4);
+        background: -webkit-linear-gradient(rgba(0, 0, 0, 0.6), transparent);
+        /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(rgba(0, 0, 0, 0.6), transparent);
+        /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(rgba(0, 0, 0, 0.6), transparent);
+        /* For Firefox 3.6 to 15 */
+        background: linear-gradient(rgba(0, 0, 0, 0.6), transparent);
+        /* Standard syntax */ }
+        .home .card .item .over-image .image-title {
+          font-family: 'Open Sans Condensed', Arial, sans-serif;
+          font-size: 24px;
+          font-weight: 700;
+          text-transform: uppercase;
+          margin: 0; }
+        .home .card .item .over-image .distance {
+          font-family: 'Open Sans', Arial, sans-serif;
+          font-size: 14px;
+          color: #fff; }
+      .home .card .item:first-child, .home .card .item .list-inset .item:first-child {
+        border-radius: 0;
+        border: none; }
+      .home .card .item h2 {
+        color: #fff; }
+
+.bar.bar-stable.bar-black {
+  border: none;
+  background: #111;
+  color: #fff; }
+  .bar.bar-stable.bar-black .title {
+    color: #fff; }
+
+.tabs-background-black .tabs {
+  border-top: 1px solid #cb3b3b !important;
+  background: #111 !important; }
+
+.tabs-background-black.tabs-top .tabs {
+  border-bottom: 1px solid #cb3b3b !important;
+  border-top: none  !important; }
