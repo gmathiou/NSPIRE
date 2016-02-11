@@ -9755,15 +9755,32 @@ a.button {
         background: linear-gradient(rgba(0, 0, 0, 0.6), transparent);
         /* Standard syntax */ }
         .home .card .item .over-image .image-title {
-          font-family: 'Open Sans Condensed', Arial, sans-serif;
+          font-family: "Open Sans Condensed", Arial, sans-serif;
           font-size: 24px;
           font-weight: 700;
           text-transform: uppercase;
           margin: 0; }
         .home .card .item .over-image .distance {
-          font-family: 'Open Sans', Arial, sans-serif;
+          font-family: "Open Sans Condensed", Arial, sans-serif;
           font-size: 14px;
           color: #fff; }
+      .home .card .item .under-image {
+        background: #0b1b22;
+        font-family: "Open Sans Condensed", Arial, sans-serif; }
+        .home .card .item .under-image .icon {
+          font-size: 34px;
+          display: inline-block; }
+        .home .card .item .under-image .value {
+          display: inline-block;
+          margin-left: 7px;
+          font-weight: 700;
+          line-height: 15px;
+          margin-top: 2px;
+          font-size: 15px;
+          text-align: left; }
+          .home .card .item .under-image .value .label {
+            font-weight: 300;
+            font-size: 13px; }
       .home .card .item:first-child, .home .card .item .list-inset .item:first-child {
         border-radius: 0;
         border: none; }
@@ -9784,3 +9801,6 @@ a.button {
 .tabs-background-black.tabs-top .tabs {
   border-bottom: 1px solid #cb3b3b !important;
   border-top: none  !important; }
+
+.text-center {
+  text-align: center; }

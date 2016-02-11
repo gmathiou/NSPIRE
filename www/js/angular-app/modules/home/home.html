@@ -11,6 +11,22 @@
                 <a ng-href="#/tab/home/photo/{{photo.id}}">
                     <img ng-src="{{photo.image_url}}">
                 </a>
+                <div class="under-image">
+                    <div class="row">
+                        <div class="col col-30">
+                            <div class="icon"><i class="ionicons ion-aperture"></i></div>
+                            <div class="value">f/{{photo.aperture}}</br><span class="label">Aperture</span></div>
+                        </div>
+                        <div class="col col-30">
+                            <div class="icon"><i class="ionicons ion-ios-timer-outline"></i></div>
+                            <div class="value">{{photo.shutter_speed}}</br><span class="label">Shutter speed</span></div>
+                        </div>
+                        <div class="col col-30">
+                            <div class="icon"><i class="ionicons ion-ios-camera-outline"></i></div>
+                            <div class="value">{{photo.iso}}</br><span class="label">ISO</span></div>
+                        </div>
+                    </div>
+                </div>
             </ion-item>
         </div>
     </ion-content>
