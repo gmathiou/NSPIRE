@@ -1,13 +1,24 @@
 .bar.bar-stable.bar-black {
     border: none;
-    background: #111;
+    /*background: rgba(0,0,0,0.6)!important;*/
+    background:#111;
     color: #fff;
     
     .title{
         color:#fff;
     }
+    
+    .button.button-clear.button-header-light{
+        color:#fff;
+    }
 }
 
+/*This is to make bar transparent */
+/*
+.scroll-content {
+  overflow: visible !important;
+}
+*/
 .tabs-background-black .tabs {
     border-top: 1px solid #cb3b3b !important;
     background: #111 !important;

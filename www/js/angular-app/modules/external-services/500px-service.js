@@ -4,15 +4,16 @@ fivehundred.service('FiveHundredService', function ($q, $http) {
     var self = this;
     self.consumer_Key = "IeFJJPcIoI76MzyxFvIjGGSAHTre2UuDFrp55xfQ";
 
-    self.getPhotos = function (coords, km) {
+    self.getPhotos = function (coords, km, page) {
         var defer = $q.defer();
         $http({
             method: 'GET',
             url: 'https://api.500px.com/v1/photos/search',
             params: {
                 'geo': coords.lat + ',' + coords.lon + ',' + km + 'km',
-                'sort': '_score',
+                'sort': 'highest_rating',
                 'image_size': 440,
+                'page': page,
                 'only': 'City and Architecture, Landscapes, Nature, Street, Urban Exploration',
                 'consumer_key': self.consumer_Key
             }

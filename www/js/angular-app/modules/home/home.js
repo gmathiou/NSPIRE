@@ -1,16 +1,24 @@
 var home = angular.module('home', ['ionic', 'ngCordova', '500px.service'])
 
-home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading) {
+home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', '$timeout', '$ionicPlatform', '$timeout', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $timeout) {
     var posOptions = { timeout: 10000, enableHighAccuracy: true };
+    $scope.status = {};
+    $scope.status.currentPage = 1;
+    $scope.status.firstLoadCompleted = false;
 
-    $cordovaGeolocation
-        .getCurrentPosition(posOptions)
-        .then(function (position) {
-            $rootScope.coords = { lat: position.coords.latitude, lon: position.coords.longitude };
-            $scope.loadPhotos();
-        }, function (err) {
-            // error
-        });
+    $ionicPlatform.ready(function () {
+        $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
+                $rootScope.coords = { lat: position.coords.latitude, lon: position.coords.longitude };
+                $scope.loadPhotos();
+                $timeout(function () {
+                    $scope.status.firstLoadCompleted = true;
+                }, 4000);
+            }, function (err) {
+                // error
+            });
+    });
 
     $scope.show = function () {
         $ionicLoading.show({
@@ -23,10 +31,15 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     };
 
     $scope.loadPhotos = function () {
-        FiveHundredService.getPhotos($rootScope.coords, 100).then(function (data) {
-            $scope.photos = data;
+        FiveHundredService.getPhotos($rootScope.coords, 30, $scope.status.currentPage).then(function (data) {
+            if ($scope.status.currentPage > 1) {
+                $scope.photos = $scope.photos.concat(data);
+            } else {
+                $scope.photos = data;
+            }
             $scope.hide();
             $scope.$broadcast('scroll.refreshComplete');
+            $scope.$broadcast('scroll.infiniteScrollComplete');
         });
     };
 
@@ -38,7 +51,15 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
         var distance = getDistanceFromLatLonInKm(lat, lon, $rootScope.coords.lat, $rootScope.coords.lon);
         return distance;
     };
-    
+
+    $scope.loadMoreData = function () {
+        if (!$rootScope.coords) {
+            return;
+        }
+        $scope.status.currentPage = $scope.status.currentPage + 1;
+        $scope.loadPhotos();
+    };
+
     $scope.show();
 
     /** Distance in km */
@@ -60,5 +81,5 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
         return deg * (Math.PI / 180)
     }
 
-    
+
 }]);

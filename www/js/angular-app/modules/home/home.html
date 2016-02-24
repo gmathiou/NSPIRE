@@ -1,12 +1,17 @@
 <ion-view class="home">
-    <ion-nav-title>Home</ion-nav-title>
+    <ion-nav-title>Photo Explorer</ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-header-light" ng-click="doSomething()">
+            <i class="ionicons ion-funnel"></i>
+        </button>
+    </ion-nav-buttons>
     <ion-content>
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
-        <div class="card" ng-repeat="photo in photos">
-            <ion-item class="item-image">
+        <ion-list>
+            <ion-item class="photo item-image" ng-repeat="photo in photos">
                 <div class="over-image">
                     <h2 class="image-title">{{photo.name}}</h2>
-                    <p class="distance">{{distance(photo.latitude, photo.longitude) | number:1}} kilometers</p>
+                    <p class="distance"><i class="ionicons ion-navigate"></i> {{distance(photo.latitude, photo.longitude) | number:1}} kilometers</p>
                 </div>
                 <a ng-href="#/tab/home/photo/{{photo.id}}">
                     <img ng-src="{{photo.image_url}}">
@@ -15,19 +20,35 @@
                     <div class="row">
                         <div class="col col-30">
                             <div class="icon"><i class="ionicons ion-aperture"></i></div>
-                            <div class="value">f/{{photo.aperture}}</br><span class="label">Aperture</span></div>
+                            <div class="value-label">
+                                <span class="value" ng-show="photo.aperture">f/{{photo.aperture}}</span>
+                                <span class="value" ng-show="!photo.aperture">-</span>
+                                <span class="label">Aperture</span>
+                            </div>
                         </div>
                         <div class="col col-30">
                             <div class="icon"><i class="ionicons ion-ios-timer-outline"></i></div>
-                            <div class="value">{{photo.shutter_speed}}</br><span class="label">Shutter speed</span></div>
+                            <div class="value-label">
+                                <span class="value" ng-show="photo.shutter_speed">{{photo.shutter_speed}}</span>
+                                <span class="value" ng-show="!photo.shutter_speed">-</span>
+                                <span class="label">Shutter speed</span>
+                            </div>
                         </div>
                         <div class="col col-30">
                             <div class="icon"><i class="ionicons ion-ios-camera-outline"></i></div>
-                            <div class="value">{{photo.iso}}</br><span class="label">ISO</span></div>
+                            <div class="value-label">
+                                <span class="value" ng-show="photo.iso">{{photo.iso}}</span>
+                                <span class="value" ng-show="!photo.iso">-</span>
+                                <span class="label">ISO</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </ion-item>
-        </div>
+        </ion-list>
+        <div style='clear: both;'></div>
+        <ion-infinite-scroll ng-if="status.firstLoadCompleted" on-infinite="loadMoreData()"
+        immediate-check="false" distance="15%">
+        </ion-infinite-scroll>
     </ion-content>
 </ion-view>

@@ -9,10 +9,12 @@ app.run(function ($ionicPlatform, $cordovaStatusbar) {
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             cordova.plugins.Keyboard.disableScroll(true);
-
         }
-        $cordovaStatusbar.overlaysWebView(true)
-        $cordovaStatusBar.style(3) //Light
+        
+        if (window.StatusBar) {
+            StatusBar.overlaysWebView(true)
+            StatusBar.styleDefault(3);
+        }
     });
 });
 

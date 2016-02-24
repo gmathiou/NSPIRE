@@ -8,12 +8,16 @@
 
     <link rel="stylesheet" href="css/ionic.app.css" type="text/css" media="all">
     <link href="https://fonts.googleapis.com/css?family=Open%20Sans%3A400%2C700%2C800%2C600%2C300%7COpen%20Sans%20Condensed%3A300%2C700&amp;subset=latin%2Cgreek" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="starter">
+    <ion-nav-bar class="bar-stable bar-black" animation="nav-title-slide-ios7">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view></ion-nav-view>
+
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="cordova.js"></script>
 
     <script src="js/angular-app/app.js"></script>
     <script src="js/angular-app/modules/home/home.js"></script>
@@ -22,15 +26,9 @@
 
     <script src="js/angular-app/modules/photo-single/photo-single.js"></script>
     <script src="js/angular-app/modules/photo-single/photo-single-service.js"></script>
-     
-</head>
-
-<body ng-app="starter">
-    <ion-nav-bar class="bar-stable bar-black">
-        <ion-nav-back-button>
-        </ion-nav-back-button>
-    </ion-nav-bar>
-    <ion-nav-view></ion-nav-view>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
 </body>
 
 </html>
