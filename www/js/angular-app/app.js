@@ -13,7 +13,7 @@ app.run(function ($ionicPlatform, $cordovaStatusbar) {
         
         if (window.StatusBar) {
             StatusBar.overlaysWebView(true)
-            StatusBar.styleDefault(3);
+            //StatusBar.styleDefault(2);
         }
     });
 });

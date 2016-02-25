@@ -1,13 +1,107 @@
 <ion-view can-swipe-back="true">
     <ion-nav-title>View photo</ion-nav-title>
-    <ion-content class="padding">
-        <img class="full-image" ng-src="{{photoItem.photo.image_url}}">
-        <h3>{{photoItem.photo.name}}</h3>
-        <p>
-            {{photoItem.photo.camera}}
-        </p>
-        <p>
-            {{photoItem.photo.user.firstname}} {{photoItem.photo.user.lastname}} 
-        </p>
+    <ion-content class="photo-single">
+        <div class="featured-image">
+            <div class="photo-image" ng-style="{'background-image':'url(' + photoItem.photo.image_url +')'}">
+            </div>
+            <div class="image-title">
+                <h3>{{photoItem.photo.name}}</h3>
+                <h4>by {{photoItem.photo.user.fullname}}</h4>
+            </div>
+            <div class="photo-details">
+                <div class="row">
+                    <div class="col">
+                        <div class="feature-item">
+                            <div class="icon">
+                                <i class="ionicons ion-ios-clock-outline"></i>
+                            </div>
+                            <div class="values">
+                                <div class="value-label">
+                                    Time taken
+                                </div>
+                                <div class="field-value" ng-show="photoItem.photo.taken_at">{{photoItem.photo.taken_at | date:"shortTime"}}</div>
+                                <div class="field-value" ng-show="!photoItem.photo.taken_at">-</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="icon">
+                                <i class="ionicons ion-aperture"></i>
+                            </div>
+                            <div class="values">
+                                <div class="value-label">
+                                    Aperture
+                                </div>
+                                <div class="field-value" ng-show="photoItem.photo.aperture">f/{{photoItem.photo.aperture}}</div>
+                                <div class="field-value" ng-show="!photoItem.photo.aperture">-</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="icon">
+                                <i class="ionicons ion-ios-film"></i>
+                            </div>
+                            <div class="values">
+                                <div class="value-label">
+                                    ISO film
+                                </div>
+                                <div class="field-value" ng-show="photoItem.photo.iso">{{photoItem.photo.iso}}</div>
+                                <div class="field-value" ng-show="!photoItem.photo.iso">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="feature-item">
+                            <div class="icon">
+                                <i class="ionicons ion-ios-clock-outline"></i>
+                            </div>
+                            <div class="values">
+                                <div class="value-label">
+                                    Focal length
+                                </div>
+                                <div class="field-value" ng-show="photoItem.photo.focal_length">{{photoItem.photo.focal_length}} mm</div>
+                                <div class="field-value" ng-show="!photoItem.photo.focal_length">-</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="icon">
+                                <i class="ionicons ion-ios-stopwatch-outline"></i>
+                            </div>
+                            <div class="values">
+                                <div class="value-label">
+                                    Shutter speed
+                                </div>
+                                <div class="field-value" ng-show="photoItem.photo.shutter_speed">{{photoItem.photo.shutter_speed}}</div>
+                                <div class="field-value" ng-show="!photoItem.photo.shutter_speed">-</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="icon">
+                                <i class="ionicons ion-ios-camera-outline"></i>
+                            </div>
+                            <div class="values">
+                                <div class="value-label">
+                                    Camera
+                                </div>
+                                <div class="field-value" ng-show="photoItem.photo.camera">{{photoItem.photo.camera}}</div>
+                                <div class="field-value" ng-show="!photoItem.photo.camera">-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of col -->
+                </div>
+                <!-- End of row -->
+
+                <div class="row">
+                    <div class="col">
+                        <div class="actions">
+                            <button class="ghost map button">Photo location</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </ion-content>
 </ion-view>

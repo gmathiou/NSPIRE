@@ -10,7 +10,6 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
     if ($scope.photoId) {
         FiveHundredService.getPhoto($scope.photoId).then(function (data) {
             $scope.photoItem = data;
-            console.log(data);
         }, function (error) {
 
         });
