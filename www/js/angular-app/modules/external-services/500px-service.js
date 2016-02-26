@@ -2,7 +2,7 @@ var fivehundred = angular.module('500px.service', []);
 
 fivehundred.service('FiveHundredService', function ($q, $http) {
     var self = this;
-    self.consumer_Key = "IeFJJPcIoI76MzyxFvIjGGSAHTre2UuDFrp55xfQ";
+    self.consumer_Key = key;
 
     self.getPhotos = function (coords, km, page) {
         var defer = $q.defer();
