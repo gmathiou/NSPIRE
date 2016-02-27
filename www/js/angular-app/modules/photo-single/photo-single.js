@@ -31,7 +31,7 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
                 latitude: $scope.photoItem.photo.latitude,
                 longitude: $scope.photoItem.photo.longitude
             },
-            options: { draggable: true },
+            options: { draggable: false },
         };
     };
 }]);
