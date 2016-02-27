@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *; style-src  &apos;self&apos; &apos;unsafe-inline&apos; *">
+
     <title>Nspire app</title>
 
     <link rel="stylesheet" href="css/ionic.app.css" type="text/css" media="all">
@@ -18,6 +20,10 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js"></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="lib/lodash/dist/lodash.min.js"></script>
+    <script src="lib/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
 
     <script src="js/angular-app/app.js"></script>
     <script src="js/angular-app/modules/home/home.js"></script>

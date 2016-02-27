@@ -2,18 +2,20 @@
 <widget id="com.ionicframework.nspire639940" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Nspire</name>
   <description>
-        An Ionic Framework and Cordova project.
+        A photographic app for discovering new places to shoot 
     </description>
-  <author email="you@example.com" href="http://example.com.com/">
-      Your Name Here
+  <author email="mathioudakis.giorgos@gmail.com" href="http://gmathiou.com">
+      Georgios Mathioudakis
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <access origin="http://maps.google.com" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
+  
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
   <feature name="StatusBar">
