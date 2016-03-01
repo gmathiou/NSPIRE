@@ -1,6 +1,6 @@
 var home = angular.module('home', ['ionic', 'ngCordova', '500px.service'])
 
-home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', '$timeout', '$ionicPlatform', '$timeout', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $timeout) {
+home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', '$timeout', '$ionicPlatform', '$ionicModal', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal) {
     var posOptions = { timeout: 10000, enableHighAccuracy: true };
     $scope.status = {};
     $scope.status.currentPage = 1;
@@ -80,6 +80,19 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     function deg2rad(deg) {
         return deg * (Math.PI / 180)
     }
+
+    $ionicModal.fromTemplateUrl('js/angular-app/modules/modals/filters.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function () {
+        $scope.modal.show();
+    };
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
 
 
 }]);

@@ -2,7 +2,7 @@
 
 var photoSingle = angular.module('photo.single', ['ionic', 'ngCordova', '500px.service', 'uiGmapgoogle-maps'])
 
-photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$stateParams', '$ionicPlatform', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $stateParams, $ionicPlatform) {
+photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$stateParams', '$ionicPlatform', '$ionicLoading', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $stateParams, $ionicPlatform, $ionicLoading) {
 
     $scope.photoId = $stateParams.photoid;
     $scope.photoItem = null;
@@ -11,9 +11,20 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
         FiveHundredService.getPhoto($scope.photoId).then(function (data) {
             $scope.photoItem = data;
             $scope.initMap();
+            $scope.hideLoading();
         }, function (error) {
 
         });
+    };
+
+    $scope.showLoading = function () {
+        $ionicLoading.show({
+            template: '<ion-spinner></ion-spinner>',
+            noBackdrop: true
+        });
+    };
+    $scope.hideLoading = function () {
+        $ionicLoading.hide();
     };
 
     $scope.initMap = function () {
@@ -22,7 +33,16 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
                 latitude: $scope.photoItem.photo.latitude,
                 longitude: $scope.photoItem.photo.longitude
             },
-            zoom: 16
+            zoom: 16,
+            options: {
+                draggable: false,
+                mapTypeControl: false,
+                panControl: false,
+                scaleControl: false,
+                scrollwheel: false,
+                streetViewControl: false,
+                zoomControl: false
+            }
         };
 
         $scope.marker = {
@@ -33,5 +53,21 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
             },
             options: { draggable: false },
         };
+
+        $scope.geocoder();
     };
+
+    $scope.geocoder = function () {
+        var geocoder = new google.maps.Geocoder;
+        var latlng = { lat: parseFloat($scope.photoItem.photo.latitude), lng: parseFloat($scope.photoItem.photo.longitude) };
+        geocoder.geocode({ 'location': latlng }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    $scope.marker.address = results[1].formatted_address;
+                }
+            }
+        });
+    };
+
+    $scope.showLoading();
 }]);

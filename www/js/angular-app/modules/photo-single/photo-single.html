@@ -2,7 +2,8 @@
     <ion-nav-title>View photo</ion-nav-title>
     <ion-content class="photo-single">
         <div class="featured-image">
-            <div class="photo-image" ng-style="{'background-image':'url(' + photoItem.photo.image_url +')'}">
+            <!--<div class="photo-image" ng-style="{'background-image':'url(' + photoItem.photo.image_url +')'}">-->
+                <img class="photo-image" ng-src="{{photoItem.photo.image_url}}" alt="photo preview" />
             </div>
             <div class="image-title">
                 <h3>{{photoItem.photo.name}}</h3>
@@ -54,7 +55,7 @@
                     <div class="col">
                         <div class="feature-item">
                             <div class="icon">
-                                <i class="ionicons ion-ios-clock-outline"></i>
+                                <i class="ionicons ion-disc"></i>
                             </div>
                             <div class="values">
                                 <div class="value-label">
@@ -98,8 +99,9 @@
                 <!-- google maps javascript -->
                 <div class="row">
                     <div class="col">
+                        <div class="map-address">{{marker.address}}</div>
                         <div class="map-wrapper">
-                            <ui-gmap-google-map center="map.center" zoom="map.zoom" data-tap-disabled="true">
+                            <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
                                 <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
                             </ui-gmap-google-map>
                         </div>
@@ -109,7 +111,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="actions">
-                            <button class="ghost map button">Open in Google Maps</button>
+                            <a ng-href="http://maps.google.com/maps?q=loc:{{marker.coords.latitude}},{{marker.coords.longitude}}" data-rel="external" class="ghost map button">Open in Google Maps</a>
                         </div>
                     </div>
                 </div>
