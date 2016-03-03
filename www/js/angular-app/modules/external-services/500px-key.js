@@ -1,1 +1,1 @@
-key = "IeFJJPcIoI76MzyxFvIjGGSAHTre2UuDFrp55xfQ";
+key = "YOUR 500px API KEY HERE";
