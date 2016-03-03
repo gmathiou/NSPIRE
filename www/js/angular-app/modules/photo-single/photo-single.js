@@ -35,7 +35,7 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
                 latitude: $scope.photoItem.photo.latitude,
                 longitude: $scope.photoItem.photo.longitude
             },
-            zoom: 16,
+            zoom: 14,
             options: {
                 draggable: false,
                 mapTypeControl: false,

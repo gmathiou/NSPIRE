@@ -34,7 +34,7 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
         if (!$scope.status.firstLoadCompleted) {
             $scope.geoLocation();
         }
-    }, 1000);
+    }, 4000);
 
     $scope.showLoading = function () {
         $ionicLoading.show({
@@ -107,6 +107,7 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     };
     $scope.closeModal = function () {
         $scope.modal.hide();
+        $scope.photos = [];
         $scope.loadPhotos();
     };
 
