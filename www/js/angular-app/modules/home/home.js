@@ -1,21 +1,33 @@
 var home = angular.module('home', ['ionic', 'ngCordova', '500px.service'])
 
-home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', '$timeout', '$ionicPlatform', '$ionicModal', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal) {
+home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', '$timeout', '$ionicPlatform', '$ionicModal', '$ionicScrollDelegate', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate) {
     var posOptions = { timeout: 10000, enableHighAccuracy: true };
     $scope.status = {};
     $scope.status.currentPage = 1;
     $scope.status.firstLoadCompleted = false; //Fix for infinite scroll
     $scope.photoCategories = FiveHundredService.photoCategories;
     $scope.selectedPhotoCategoryNames = [];
+    $scope.filters = {};
+    $scope.filters.range = 60;
 
-
+    $scope.showLoading = function () {
+        $ionicLoading.show({
+            template: '<ion-spinner></ion-spinner>',
+            noBackdrop: true
+        });
+    };
+    $scope.hideLoading = function () {
+        $ionicLoading.hide();
+    };
+    
     $scope.geoLocation = function () {
-        $cordovaGeolocation
-            .getCurrentPosition(posOptions)
+        $scope.showLoading();
+        $cordovaGeolocation.getCurrentPosition(posOptions)
             .then(function (position) {
                 if (!position) {
                     return;
                 }
+                
                 $rootScope.coords = { lat: position.coords.latitude, lon: position.coords.longitude };
                 $scope.loadPhotos();
                 $timeout(function () {
@@ -36,27 +48,17 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
         }
     }, 4000);
 
-    $scope.showLoading = function () {
-        $ionicLoading.show({
-            template: '<ion-spinner></ion-spinner>',
-            noBackdrop: true
-        });
-    };
-    $scope.hideLoading = function () {
-        $ionicLoading.hide();
-    };
-
     $scope.loadPhotos = function () {
-        $scope.showLoading();
-        FiveHundredService.getPhotos($rootScope.coords, 30, $scope.status.currentPage).then(function (data) {
+        FiveHundredService.getPhotos($rootScope.coords, $scope.filters.range, $scope.status.currentPage).then(function (data) {
             if ($scope.status.currentPage > 1) {
                 $scope.photos = $scope.photos.concat(data);
             } else {
                 $scope.photos = data;
             }
-            $scope.hideLoading();
+            $ionicScrollDelegate.scrollTop();
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$broadcast('scroll.infiniteScrollComplete');
+            $scope.hideLoading();
         });
     };
 
@@ -108,8 +110,7 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     $scope.closeModal = function () {
         $scope.modal.hide();
         $scope.photos = [];
+        $scope.showLoading();
         $scope.loadPhotos();
     };
-
-
 }]);

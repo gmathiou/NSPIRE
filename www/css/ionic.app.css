@@ -9897,3 +9897,7 @@ a.button {
     background: #2597b2;
     border: none;
     color: #fff; }
+  .filters-modal .item.range-dark {
+    background: #14303c;
+    color: #fff;
+    border: none; }

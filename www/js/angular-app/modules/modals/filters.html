@@ -8,6 +8,14 @@
     <ion-content>
         <ul class="list">
             <div class="item item-divider">
+                Range {{filters.range}} km
+            </div>
+            <div class="item range range-balanced">
+                <i class="ionicons ion-ios-location-outline"></i>
+                <input type="range" name="volume" min="10" max="500" ng-model="filters.range">
+                <i class="ionicons ion-ios-location"></i>
+            </div>
+            <div class="item item-divider">
                 Photo categories
             </div>
             <ion-toggle class="toggle-balanced" ng-repeat="category in photoCategories" ng-model="category.checked" ng-checked="category.checked">
