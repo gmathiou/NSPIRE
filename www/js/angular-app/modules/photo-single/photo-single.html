@@ -99,7 +99,7 @@
                 <!-- google maps javascript -->
                 <div class="row">
                     <div class="col">
-                        <div class="map-address">{{marker.address}}</div>
+                        <div class="map-address" ng-show="marker.address">{{marker.address}}</div>
                         <div class="map-wrapper">
                             <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
                                 <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">

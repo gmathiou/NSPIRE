@@ -1,8 +1,18 @@
-<ion-modal-view>
-    <ion-header-bar>
-        <h1 class="title">Filters</h1>
+<ion-modal-view class="filters-modal">
+    <ion-header-bar class="bar-stable bar-black ">
+        <h1 class="title ">Filters</h1>
+        <div class="buttons ">
+            <button class="button button-clear button-light" ng-click="closeModal()">Close</button>
+        </div>
     </ion-header-bar>
     <ion-content>
-        <button class="button button-full button-energized" ng-click="closeModal()">Close</button>
+        <ul class="list">
+            <div class="item item-divider">
+                Photo categories
+            </div>
+            <ion-toggle class="toggle-balanced" ng-repeat="category in photoCategories" ng-model="category.checked" ng-checked="category.checked">
+                {{category.name}}
+            </ion-toggle>
+        </ul>
     </ion-content>
 </ion-modal-view>

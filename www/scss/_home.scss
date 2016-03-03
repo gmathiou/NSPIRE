@@ -1,5 +1,5 @@
 .home{
-    background:#111111; 
+    background:$secondary-dark-color; 
 
     .item-image{
         background:#0b1b22;
@@ -35,7 +35,7 @@
         }
         
         .under-image{
-            background:#14303c;
+            background:$primary-dark-color;
             font-family: $font-condensed;
             .icon{
                 font-size:34px;

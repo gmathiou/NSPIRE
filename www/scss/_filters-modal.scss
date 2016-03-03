@@ -1,0 +1,15 @@
+.filters-modal{
+    background:#111;
+    
+    .item-toggle{
+        background: $primary-dark-color;
+        border: none;
+        color: #fff;
+    }
+    
+    .item.item-divider{
+        background:$brand-color;
+        border:none;
+        color:#fff;
+    }
+}

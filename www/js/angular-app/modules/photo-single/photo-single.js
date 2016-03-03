@@ -3,19 +3,8 @@
 var photoSingle = angular.module('photo.single', ['ionic', 'ngCordova', '500px.service', 'uiGmapgoogle-maps'])
 
 photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$stateParams', '$ionicPlatform', '$ionicLoading', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $stateParams, $ionicPlatform, $ionicLoading) {
-
     $scope.photoId = $stateParams.photoid;
     $scope.photoItem = null;
-
-    if ($scope.photoId) {
-        FiveHundredService.getPhoto($scope.photoId).then(function (data) {
-            $scope.photoItem = data;
-            $scope.initMap();
-            $scope.hideLoading();
-        }, function (error) {
-
-        });
-    };
 
     $scope.showLoading = function () {
         $ionicLoading.show({
@@ -25,6 +14,19 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
     };
     $scope.hideLoading = function () {
         $ionicLoading.hide();
+    };
+
+    $scope.loadPhoto = function () {
+        if ($scope.photoId) {
+            $scope.showLoading();
+            FiveHundredService.getPhoto($scope.photoId).then(function (data) {
+                $scope.photoItem = data;
+                $scope.hideLoading();
+                $scope.initMap();
+            }, function (error) {
+
+            });
+        };
     };
 
     $scope.initMap = function () {
@@ -68,6 +70,6 @@ photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHu
             }
         });
     };
-
-    $scope.showLoading();
+    
+    $scope.loadPhoto();
 }]);

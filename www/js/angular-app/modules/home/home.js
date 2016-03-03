@@ -4,40 +4,57 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     var posOptions = { timeout: 10000, enableHighAccuracy: true };
     $scope.status = {};
     $scope.status.currentPage = 1;
-    $scope.status.firstLoadCompleted = false;
+    $scope.status.firstLoadCompleted = false; //Fix for infinite scroll
+    $scope.photoCategories = FiveHundredService.photoCategories;
+    $scope.selectedPhotoCategoryNames = [];
 
-    $ionicPlatform.ready(function () {
+
+    $scope.geoLocation = function () {
         $cordovaGeolocation
             .getCurrentPosition(posOptions)
             .then(function (position) {
+                if (!position) {
+                    return;
+                }
                 $rootScope.coords = { lat: position.coords.latitude, lon: position.coords.longitude };
                 $scope.loadPhotos();
                 $timeout(function () {
                     $scope.status.firstLoadCompleted = true;
                 }, 4000);
             }, function (err) {
-                // error
             });
+    };
+
+    $ionicPlatform.ready(function () {
+        $scope.geoLocation();
     });
 
-    $scope.show = function () {
+    /* Fallback. In case ionicplatform ready is not fired */
+    $timeout(function () {
+        if (!$scope.status.firstLoadCompleted) {
+            $scope.geoLocation();
+        }
+    }, 1000);
+
+    $scope.showLoading = function () {
         $ionicLoading.show({
             template: '<ion-spinner></ion-spinner>',
             noBackdrop: true
         });
     };
-    $scope.hide = function () {
+    $scope.hideLoading = function () {
         $ionicLoading.hide();
     };
 
     $scope.loadPhotos = function () {
+        $scope.showLoading();
         FiveHundredService.getPhotos($rootScope.coords, 30, $scope.status.currentPage).then(function (data) {
             if ($scope.status.currentPage > 1) {
                 $scope.photos = $scope.photos.concat(data);
             } else {
                 $scope.photos = data;
             }
-            $scope.hide();
+            $scope.hideLoading();
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$broadcast('scroll.infiniteScrollComplete');
         });
@@ -59,8 +76,6 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
         $scope.status.currentPage = $scope.status.currentPage + 1;
         $scope.loadPhotos();
     };
-
-    $scope.show();
 
     /** Distance in km */
     function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -92,6 +107,7 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     };
     $scope.closeModal = function () {
         $scope.modal.hide();
+        $scope.loadPhotos();
     };
 
 

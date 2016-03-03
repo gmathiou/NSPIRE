@@ -9732,7 +9732,7 @@ a.button {
   transition-duration: 0s; }
 
 .home {
-  background: #111111; }
+  background: #111; }
   .home .item-image {
     background: #0b1b22;
     color: #fff;
@@ -9886,3 +9886,14 @@ a.button {
     .photo-single .map-wrapper .angular-google-map, .photo-single .map-wrapper .angular-google-map-container {
       height: 100%;
       width: 100%; }
+
+.filters-modal {
+  background: #111; }
+  .filters-modal .item-toggle {
+    background: #14303c;
+    border: none;
+    color: #fff; }
+  .filters-modal .item.item-divider {
+    background: #2597b2;
+    border: none;
+    color: #fff; }
