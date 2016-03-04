@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo.single']);
+var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo_single' ,'tabs']);
 
 app.run(function ($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function () {
@@ -22,7 +22,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'js/angular-app/modules/tabs/tabs.html'
+        templateUrl: 'js/angular-app/modules/tabs/tabs.html',
+        controller: 'TabsController'
     });
 
     $stateProvider.state('tab.home', {
