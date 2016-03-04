@@ -2,26 +2,16 @@
 
 var photoSingle = angular.module('photo.single', ['ionic', 'ngCordova', '500px.service', 'uiGmapgoogle-maps'])
 
-photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$stateParams', '$ionicPlatform', '$ionicLoading', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $stateParams, $ionicPlatform, $ionicLoading) {
+photoSingle.controller('PhotoSingleController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$stateParams', '$ionicPlatform', '$ionicLoading', '$cordovaProgress', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $stateParams, $ionicPlatform, $ionicLoading, $cordovaProgress) {
     $scope.photoId = $stateParams.photoid;
     $scope.photoItem = null;
 
-    $scope.showLoading = function () {
-        $ionicLoading.show({
-            template: '<ion-spinner></ion-spinner>',
-            noBackdrop: true
-        });
-    };
-    $scope.hideLoading = function () {
-        $ionicLoading.hide();
-    };
-
     $scope.loadPhoto = function () {
         if ($scope.photoId) {
-            $scope.showLoading();
+            $cordovaProgress.showSimple(true);
             FiveHundredService.getPhoto($scope.photoId).then(function (data) {
                 $scope.photoItem = data;
-                $scope.hideLoading();
+                $cordovaProgress.hide();
                 $scope.initMap();
             }, function (error) {
 

@@ -1,6 +1,6 @@
 var home = angular.module('home', ['ionic', 'ngCordova', '500px.service'])
 
-home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', '$timeout', '$ionicPlatform', '$ionicModal', '$ionicScrollDelegate', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate) {
+home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService', '$cordovaGeolocation', '$ionicLoading', '$timeout', '$ionicPlatform', '$ionicModal', '$ionicScrollDelegate', '$cordovaProgress', function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate, $cordovaProgress) {
     var posOptions = { timeout: 10000, enableHighAccuracy: true };
     $scope.status = {};
     $scope.status.currentPage = 1;
@@ -10,30 +10,17 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     $scope.filters = {};
     $scope.filters.range = 60;
 
-    $scope.showLoading = function () {
-        $ionicLoading.show({
-            template: '<ion-spinner></ion-spinner>',
-            noBackdrop: true
-        });
-    };
-    $scope.hideLoading = function () {
-        $ionicLoading.hide();
-    };
-    
     $scope.geoLocation = function () {
-        $scope.showLoading();
+        $cordovaProgress.showSimple(true);
         $cordovaGeolocation.getCurrentPosition(posOptions)
             .then(function (position) {
                 if (!position) {
                     return;
                 }
-                
                 $rootScope.coords = { lat: position.coords.latitude, lon: position.coords.longitude };
                 $scope.loadPhotos();
-                $timeout(function () {
-                    $scope.status.firstLoadCompleted = true;
-                }, 4000);
             }, function (err) {
+                $cordovaProgress.showText(false, 5000, "Geolocation failed");
             });
     };
 
@@ -57,7 +44,8 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
             }
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$broadcast('scroll.infiniteScrollComplete');
-            $scope.hideLoading();
+            $cordovaProgress.hide();
+            $scope.status.firstLoadCompleted = true;
         });
     };
 
@@ -109,7 +97,7 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
     $scope.closeModal = function () {
         $scope.modal.hide();
         $scope.photos = [];
-        $scope.showLoading();
+        $cordovaProgress.showSimple(true);
         $scope.loadPhotos();
         $ionicScrollDelegate.scrollTop();
     };
