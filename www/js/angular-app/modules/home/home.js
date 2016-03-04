@@ -55,7 +55,6 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
             } else {
                 $scope.photos = data;
             }
-            $ionicScrollDelegate.scrollTop();
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$broadcast('scroll.infiniteScrollComplete');
             $scope.hideLoading();
@@ -112,5 +111,6 @@ home.controller('HomeController', ['$rootScope', '$scope', 'FiveHundredService',
         $scope.photos = [];
         $scope.showLoading();
         $scope.loadPhotos();
+        $ionicScrollDelegate.scrollTop();
     };
 }]);
