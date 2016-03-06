@@ -10,7 +10,10 @@ photoSingle.controller('PhotoSingleController', [
     '$stateParams',
     '$ionicPlatform',
     '$ionicLoading',
-    function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $stateParams, $ionicPlatform, $ionicLoading) {
+    '$ionicModal',
+    '$ionicScrollDelegate',
+    '$ionicSlideBoxDelegate',
+    function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $stateParams, $ionicPlatform, $ionicLoading, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate) {
         $scope.photoId = $stateParams.photoid;
         $scope.photoItem = null;
 
@@ -67,6 +70,31 @@ photoSingle.controller('PhotoSingleController', [
                     }
                 }
             });
+        };
+
+        $scope.zoomMin = 1;
+        $scope.showImage = function (image) {
+            $ionicModal.fromTemplateUrl("js/angular-app/modules/modals/image-preview.html", {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.modal = modal;
+                $scope.modal.show();
+            });
+        }
+
+        $scope.closeModal = function () {
+            $scope.modal.hide();
+            $scope.modal.remove()
+        };
+
+        $scope.updateSlideStatus = function () {
+            var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().zoom;
+            if (zoomFactor == $scope.zoomMin) {
+                $ionicSlideBoxDelegate.enableSlide(true);
+            } else {
+                $ionicSlideBoxDelegate.enableSlide(false);
+            }
         };
 
         $scope.loadPhoto();

@@ -4,20 +4,21 @@ fivehundred.service('FiveHundredService', function ($q, $http) {
     var self = this;
     self.consumer_Key = key;
 
-    self.getPhotos = function (coords, km, page) {
+    self.getPhotos = function (coords, km, selectedSorting, page) {
         var catString = '';
-        for (var i = 0; i < self.photoCategories.length; i++){
+        for (var i = 0; i < self.photoCategories.length; i++) {
             if (self.photoCategories[i].checked == true) {
                 catString = catString + self.photoCategories[i].name + ", "
             }
         }
+        console.log("Photo categories: " + catString);
         var defer = $q.defer();
         $http({
             method: 'GET',
             url: 'https://api.500px.com/v1/photos/search',
             params: {
                 'geo': coords.lat + ',' + coords.lon + ',' + km + 'km',
-                'sort': '_score',
+                'sort': selectedSorting ? selectedSorting : '_score',
                 'image_size': 600,
                 'page': page,
                 'only': catString,
@@ -87,5 +88,16 @@ fivehundred.service('FiveHundredService', function ($q, $http) {
         { id: 22, name: 'Underwater' },
         { id: 27, name: 'Urban Exploration' },
         { id: 25, name: 'Wedding' }
-    ]
+    ];
+
+    self.sortingOptions = [
+        { name: "_score", label: "Best match first" },
+        { name: "created_at", label: "Most recent first (uploading time)" },
+        { name: "rating", label: "Current rating" },
+        { name: "highest_rating", label: "Highest rating" },
+        { name: "times_viewed", label: "Number of views" },
+        { name: "votes_count", label: "Most voted first" },
+        { name: "comments_count", label: "Number of comments" },
+        { name: "taken_at", label: "Most recent first (shooting time)" }
+    ];
 });

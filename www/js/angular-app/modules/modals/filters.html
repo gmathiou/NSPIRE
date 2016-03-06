@@ -7,14 +7,24 @@
     </ion-header-bar>
     <ion-content>
         <ul class="list">
+            <div class="item select-dark">
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Sorting
+                    </div>
+                    <select ng-model="status.selectedSorting" ng-options="sorting.name as sorting.label for sorting in filters.sortingOptions"></select>
+                </label>
+            </div>
+
             <div class="item item-divider">
                 Range {{filters.range}} km
             </div>
-            <div class="item range range-balanced">
+            <div class="item range range-balanced range-dark">
                 <i class="ionicons ion-ios-location-outline"></i>
                 <input type="range" name="volume" min="10" max="500" ng-model="filters.range">
                 <i class="ionicons ion-ios-location"></i>
             </div>
+
             <div class="item item-divider">
                 Photo categories
             </div>

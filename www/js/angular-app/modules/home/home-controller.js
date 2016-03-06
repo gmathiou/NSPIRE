@@ -15,10 +15,11 @@ home.controller('HomeController', [
         $scope.photos = [];
         $scope.status.currentPage = 1;
         $scope.photoCategories = FiveHundredService.photoCategories;
-        $scope.selectedPhotoCategoryNames = [];
         $scope.filters = {};
         $scope.filters.range = 60;
-
+        $scope.filters.sortingOptions = FiveHundredService.sortingOptions;
+        $scope.status.selectedSorting = $scope.filters.sortingOptions[0].name;
+        
         $scope.geoLocation = function () {
             $ionicLoading.show();
             var geolocOptions = { maximumAge: 60000, timeout: 3000, enableHighAccuracy: true };
@@ -30,7 +31,7 @@ home.controller('HomeController', [
                 $rootScope.coords = { lat: position.coords.latitude, lon: position.coords.longitude };
                 $scope.loadPhotos();
             }, function (err) {
-                $ionicLoading.show({ template: 'Geolocation failed', duration: 5000 });
+                // $ionicLoading.show({ template: 'Geolocation failed', duration: 5000 });
                 console.error("Geolocation failed");
                 $timeout(function () {
                     $scope.geoLocation();
@@ -40,7 +41,7 @@ home.controller('HomeController', [
 
         $scope.loadPhotos = function () {
             console.log("Start loading photos");
-            FiveHundredService.getPhotos($rootScope.coords, $scope.filters.range, $scope.status.currentPage).then(function (data) {
+            FiveHundredService.getPhotos($rootScope.coords, $scope.filters.range, $scope.status.selectedSorting, $scope.status.currentPage).then(function (data) {
                 if ($scope.status.currentPage > 1) {
                     $scope.photos = $scope.photos.concat(data);
                 } else {
@@ -108,13 +109,11 @@ home.controller('HomeController', [
         };
 
         $ionicPlatform.ready(function () {
-            console.log("ionic platform");
+            console.log("ionic platform ready!");
             $scope.geoLocation();
         });
 
         $timeout(function () {
-            if ($scope.photos.length < 1) {
-                $scope.geoLocation();
-            }
-        }, 5000);
+            $scope.showRetry = true;
+        }, 6000);
     }]);

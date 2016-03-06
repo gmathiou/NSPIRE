@@ -2,121 +2,121 @@
     <ion-nav-title>View photo</ion-nav-title>
     <ion-content class="photo-single">
         <div class="featured-image">
-            <!--<div class="photo-image" ng-style="{'background-image':'url(' + photoItem.photo.image_url +')'}">-->
-                <img class="photo-image" ng-src="{{photoItem.photo.image_url}}" alt="photo preview" />
-            </div>
-            <div class="image-title">
-                <h3>{{photoItem.photo.name}}</h3>
-                <h4>by {{photoItem.photo.user.fullname}}</h4>
-            </div>
-            <div class="photo-details">
-                <div class="row">
-                    <div class="col">
-                        <div class="feature-item">
-                            <div class="icon">
-                                <i class="ionicons ion-ios-clock-outline"></i>
-                            </div>
-                            <div class="values">
-                                <div class="value-label">
-                                    Time taken
-                                </div>
-                                <div class="field-value" ng-show="photoItem.photo.taken_at">{{photoItem.photo.taken_at | date:"shortTime"}}</div>
-                                <div class="field-value" ng-show="!photoItem.photo.taken_at">-</div>
-                            </div>
+            <img class="photo-image" ng-src="{{photoItem.photo.image_url}}" alt="photo preview" ng-click="showImage(photoItem)" />
+        </div>
+        <div class="image-title">
+            <h3>{{photoItem.photo.name}}</h3>
+            <h4>by {{photoItem.photo.user.fullname}}</h4>
+        </div>
+        <div class="photo-details">
+            <div class="row">
+                <div class="col">
+                    <div class="feature-item">
+                        <div class="icon">
+                            <i class="ionicons ion-ios-clock-outline"></i>
                         </div>
-
-                        <div class="feature-item">
-                            <div class="icon">
-                                <i class="ionicons ion-aperture"></i>
+                        <div class="values">
+                            <div class="value-label">
+                                Time taken
                             </div>
-                            <div class="values">
-                                <div class="value-label">
-                                    Aperture
-                                </div>
-                                <div class="field-value" ng-show="photoItem.photo.aperture">f/{{photoItem.photo.aperture}}</div>
-                                <div class="field-value" ng-show="!photoItem.photo.aperture">-</div>
-                            </div>
-                        </div>
-
-                        <div class="feature-item">
-                            <div class="icon">
-                                <i class="ionicons ion-ios-film"></i>
-                            </div>
-                            <div class="values">
-                                <div class="value-label">
-                                    ISO film
-                                </div>
-                                <div class="field-value" ng-show="photoItem.photo.iso">{{photoItem.photo.iso}}</div>
-                                <div class="field-value" ng-show="!photoItem.photo.iso">-</div>
-                            </div>
+                            <div class="field-value" ng-show="photoItem.photo.taken_at">{{photoItem.photo.taken_at | date:"shortTime"}}</div>
+                            <div class="field-value" ng-show="!photoItem.photo.taken_at">-</div>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="feature-item">
-                            <div class="icon">
-                                <i class="ionicons ion-disc"></i>
-                            </div>
-                            <div class="values">
-                                <div class="value-label">
-                                    Focal length
-                                </div>
-                                <div class="field-value" ng-show="photoItem.photo.focal_length">{{photoItem.photo.focal_length}} mm</div>
-                                <div class="field-value" ng-show="!photoItem.photo.focal_length">-</div>
-                            </div>
+                    <div class="feature-item">
+                        <div class="icon">
+                            <i class="ionicons ion-aperture"></i>
                         </div>
-
-                        <div class="feature-item">
-                            <div class="icon">
-                                <i class="ionicons ion-ios-stopwatch-outline"></i>
+                        <div class="values">
+                            <div class="value-label">
+                                Aperture
                             </div>
-                            <div class="values">
-                                <div class="value-label">
-                                    Shutter speed
-                                </div>
-                                <div class="field-value" ng-show="photoItem.photo.shutter_speed">{{photoItem.photo.shutter_speed}}</div>
-                                <div class="field-value" ng-show="!photoItem.photo.shutter_speed">-</div>
-                            </div>
-                        </div>
-
-                        <div class="feature-item">
-                            <div class="icon">
-                                <i class="ionicons ion-ios-camera-outline"></i>
-                            </div>
-                            <div class="values">
-                                <div class="value-label">
-                                    Camera
-                                </div>
-                                <div class="field-value" ng-show="photoItem.photo.camera">{{photoItem.photo.camera}}</div>
-                                <div class="field-value" ng-show="!photoItem.photo.camera">-</div>
-                            </div>
+                            <div class="field-value" ng-show="photoItem.photo.aperture">f/{{photoItem.photo.aperture}}</div>
+                            <div class="field-value" ng-show="!photoItem.photo.aperture">-</div>
                         </div>
                     </div>
-                    <!-- End of col -->
-                </div>
-                <!-- End of row -->
 
-                <!-- google maps javascript -->
-                <div class="row">
-                    <div class="col">
-                        <div class="map-address" ng-show="marker.address">{{marker.address}}</div>
-                        <div class="map-wrapper">
-                            <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-                                <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
-                            </ui-gmap-google-map>
+                    <div class="feature-item">
+                        <div class="icon">
+                            <i class="ionicons ion-ios-film"></i>
+                        </div>
+                        <div class="values">
+                            <div class="value-label">
+                                ISO film
+                            </div>
+                            <div class="field-value" ng-show="photoItem.photo.iso">{{photoItem.photo.iso}}</div>
+                            <div class="field-value" ng-show="!photoItem.photo.iso">-</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <div class="actions">
-                            <a ng-href="http://maps.google.com/maps?q=loc:{{marker.coords.latitude}},{{marker.coords.longitude}}" data-rel="external" class="ghost map button">Open in Google Maps</a>
+
+                <div class="col">
+                    <div class="feature-item">
+                        <div class="icon">
+                            <i class="ionicons ion-disc"></i>
+                        </div>
+                        <div class="values">
+                            <div class="value-label">
+                                Focal length
+                            </div>
+                            <div class="field-value" ng-show="photoItem.photo.focal_length">{{photoItem.photo.focal_length}} mm</div>
+                            <div class="field-value" ng-show="!photoItem.photo.focal_length">-</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="icon">
+                            <i class="ionicons ion-ios-stopwatch-outline"></i>
+                        </div>
+                        <div class="values">
+                            <div class="value-label">
+                                Shutter speed
+                            </div>
+                            <div class="field-value" ng-show="photoItem.photo.shutter_speed">{{photoItem.photo.shutter_speed}}</div>
+                            <div class="field-value" ng-show="!photoItem.photo.shutter_speed">-</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="icon">
+                            <i class="ionicons ion-ios-camera-outline"></i>
+                        </div>
+                        <div class="values">
+                            <div class="value-label">
+                                Camera
+                            </div>
+                            <div class="field-value" ng-show="photoItem.photo.camera">{{photoItem.photo.camera}}</div>
+                            <div class="field-value" ng-show="!photoItem.photo.camera">-</div>
                         </div>
                     </div>
                 </div>
-                
-                
+                <!-- End of col -->
             </div>
+            <!-- End of row -->
+
+            <!-- google maps javascript -->
+            <div class="row">
+                <div class="col">
+                    <div class="map-address" ng-show="marker.address">{{marker.address}}</div>
+                    <div class="map-wrapper">
+                        <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+                            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+                        </ui-gmap-google-map>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="actions">
+                        <a ng-href="http://maps.google.com/maps?q=loc:{{marker.coords.latitude}},{{marker.coords.longitude}}" data-rel="external"
+                        class="ghost map button">Open in Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </ion-content>
 </ion-view>
