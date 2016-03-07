@@ -88,6 +88,7 @@ photoSingle.controller('PhotoSingleController', [
             $scope.modal.remove()
         };
 
+        $scope.zoomMin = 1;
         $scope.updateSlideStatus = function () {
             var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().zoom;
             if (zoomFactor == $scope.zoomMin) {

@@ -16,7 +16,7 @@ home.controller('HomeController', [
         $scope.status.currentPage = 1;
         $scope.photoCategories = FiveHundredService.photoCategories;
         $scope.filters = {};
-        $scope.filters.range = 60;
+        $scope.filters.range = 10;
         $scope.filters.sortingOptions = FiveHundredService.sortingOptions;
         $scope.status.selectedSorting = $scope.filters.sortingOptions[0].name;
         
@@ -103,6 +103,7 @@ home.controller('HomeController', [
         $scope.closeModal = function () {
             $scope.modal.hide();
             $scope.photos = [];
+            $scope.status.showRetry = false;
             $ionicLoading.show();
             $scope.loadPhotos();
             $ionicScrollDelegate.scrollTop();
@@ -113,7 +114,10 @@ home.controller('HomeController', [
             $scope.geoLocation();
         });
 
+        $scope.photos = [];
+        $scope.status.showRetry = true;
+        $scope.status.showRetry = false;
         $timeout(function () {
-            $scope.showRetry = true;
+            $scope.status.showRetry = true;
         }, 6000);
     }]);

@@ -49,7 +49,7 @@
         <div style='clear: both;'></div>
         <ion-infinite-scroll on-infinite="loadMoreData()" immediate-check="false" distance="15%">
         </ion-infinite-scroll>
-        <div class="vcenter" ng-show="photos.length < 1 && showRetry">
+        <div class="vcenter" ng-show="photos.length < 1 && status.showRetry">
             <button class="button button-outline button-light" ng-click="geoLocation()">
                 Retry loading photos
             </button>

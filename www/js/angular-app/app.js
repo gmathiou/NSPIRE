@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo_single' ,'tabs']);
+var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo_single', 'tabs']);
 
 app.run(function ($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function () {
@@ -10,7 +10,7 @@ app.run(function ($ionicPlatform, $cordovaStatusbar) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             cordova.plugins.Keyboard.disableScroll(true);
         }
-        
+
         if (window.StatusBar) {
             StatusBar.overlaysWebView(true)
             //StatusBar.styleDefault(2);
@@ -18,7 +18,7 @@ app.run(function ($ionicPlatform, $cordovaStatusbar) {
     });
 });
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $stateProvider.state('tab', {
         url: '/tab',
         abstract: true,
@@ -48,4 +48,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('tab/home');
+
+    $ionicConfigProvider.scrolling.jsScrolling(false);
 });
