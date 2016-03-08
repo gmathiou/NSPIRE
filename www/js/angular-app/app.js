@@ -1,9 +1,9 @@
 'use strict';
 
-var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo_single', 'tabs']);
+var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo_single', 'tabs', 'map']);
 
-app.run(function ($ionicPlatform, $cordovaStatusbar) {
-    $ionicPlatform.ready(function () {
+app.run(function($ionicPlatform, $cordovaStatusbar) {
+    $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -18,7 +18,7 @@ app.run(function ($ionicPlatform, $cordovaStatusbar) {
     });
 });
 
-app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $stateProvider.state('tab', {
         url: '/tab',
         abstract: true,
@@ -44,7 +44,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 controller: 'PhotoSingleController'
             }
         }
-    })
+    });
+
+    $stateProvider.state('tab.map', {
+        url: '/map',
+        views: {
+            'tab-map': {
+                templateUrl: 'js/angular-app/modules/map/map.html',
+                controller: 'MapController'
+            }
+        }
+    });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('tab/home');

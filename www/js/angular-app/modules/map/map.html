@@ -1,0 +1,15 @@
+<ion-view class="map-page">
+    <ion-nav-title>Map</ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-header-light">
+            <i class="ionicons ion-funnel"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="map-wrapper">
+            <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+                <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+            </ui-gmap-google-map>
+        </div>
+    </ion-content>
+</ion-view>

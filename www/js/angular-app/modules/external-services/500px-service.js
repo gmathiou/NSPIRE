@@ -4,7 +4,7 @@ fivehundred.service('FiveHundredService', function ($q, $http) {
     var self = this;
     self.consumer_Key = key;
 
-    self.getPhotos = function (coords, km, selectedSorting, page) {
+    self.getPhotos = function (position, km, selectedSorting, page) {
         var catString = '';
         for (var i = 0; i < self.photoCategories.length; i++) {
             if (self.photoCategories[i].checked == true) {
@@ -17,7 +17,7 @@ fivehundred.service('FiveHundredService', function ($q, $http) {
             method: 'GET',
             url: 'https://api.500px.com/v1/photos/search',
             params: {
-                'geo': coords.lat + ',' + coords.lon + ',' + km + 'km',
+                'geo': position.coords.latitude + ',' + position.coords.longitude + ',' + km + 'km',
                 'sort': selectedSorting ? selectedSorting : '_score',
                 'image_size': 600,
                 'page': page,

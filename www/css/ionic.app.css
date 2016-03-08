@@ -9955,3 +9955,10 @@ a.button {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center, center; }
+
+.map-page .map-wrapper {
+  width: 100%;
+  height: 100%; }
+  .map-page .map-wrapper .angular-google-map, .map-page .map-wrapper .angular-google-map-container {
+    height: 100%;
+    width: 100%; }

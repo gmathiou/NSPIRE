@@ -3,6 +3,7 @@ var home = angular.module('home', ['ionic', 'ngCordova', '500px.service'])
 home.controller('HomeController', [
     '$rootScope',
     '$scope',
+    'HomeService',
     'FiveHundredService',
     '$cordovaGeolocation',
     '$ionicLoading',
@@ -10,43 +11,28 @@ home.controller('HomeController', [
     '$ionicPlatform',
     '$ionicModal',
     '$ionicScrollDelegate',
-    function ($rootScope, $scope, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate) {
-        $scope.status = {};
-        $scope.photos = [];
-        $scope.status.currentPage = 1;
-        $scope.photoCategories = FiveHundredService.photoCategories;
-        $scope.filters = {};
-        $scope.filters.range = 10;
-        $scope.filters.sortingOptions = FiveHundredService.sortingOptions;
-        $scope.status.selectedSorting = $scope.filters.sortingOptions[0].name;
-        
-        $scope.geoLocation = function () {
+    function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate) {
+        $scope.status = HomeService.status;
+        $scope.photos = HomeService.photos;
+        $scope.photoCategories = HomeService.photoCategories;
+        $scope.filters = HomeService.filters;
+
+        $scope.geoLocation = function() {
             $ionicLoading.show();
-            var geolocOptions = { maximumAge: 60000, timeout: 3000, enableHighAccuracy: true };
-            navigator.geolocation.getCurrentPosition(function (position) {
-                if (!position) {
-                    return;
-                }
-                console.log("Load from geolocation");
-                $rootScope.coords = { lat: position.coords.latitude, lon: position.coords.longitude };
+            HomeService.getLocation().then(function(position) {
+                console.log("Load from geolocation: ");
+                console.log(position);
                 $scope.loadPhotos();
-            }, function (err) {
-                // $ionicLoading.show({ template: 'Geolocation failed', duration: 5000 });
+            }, function(error) {
                 console.error("Geolocation failed");
-                $timeout(function () {
-                    $scope.geoLocation();
-                }, 1000);
-            }, geolocOptions);
+                $scope.geoLocation();
+            });
         };
 
-        $scope.loadPhotos = function () {
+        $scope.loadPhotos = function() {
             console.log("Start loading photos");
-            FiveHundredService.getPhotos($rootScope.coords, $scope.filters.range, $scope.status.selectedSorting, $scope.status.currentPage).then(function (data) {
-                if ($scope.status.currentPage > 1) {
-                    $scope.photos = $scope.photos.concat(data);
-                } else {
-                    $scope.photos = data;
-                }
+            HomeService.loadPhotos().then(function(data) {
+                $scope.photos = data;
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.$broadcast('scroll.infiniteScrollComplete');
                 $ionicLoading.hide();
@@ -54,21 +40,22 @@ home.controller('HomeController', [
             });
         };
 
-        $scope.doRefresh = function () {
+        $scope.doRefresh = function() {
             $scope.loadPhotos();
         };
 
-        $scope.distance = function (lat, lon) {
-            var distance = getDistanceFromLatLonInKm(lat, lon, $rootScope.coords.lat, $rootScope.coords.lon);
+        $scope.distance = function(lat, lon) {
+            var distance = getDistanceFromLatLonInKm(lat, lon, HomeService.myPosition.coords.latitude, HomeService.myPosition.coords.longitude);
             return distance;
         };
 
-        $scope.loadMoreData = function () {
+        $scope.loadMoreData = function() {
             console.log("Load more data");
-            if (!$rootScope.coords) {
+            if (!HomeService.myPosition.coords) {
                 return;
             }
             $scope.status.currentPage = $scope.status.currentPage + 1;
+            HomeService.status.currentPage = $scope.status.currentPage;
             $scope.loadPhotos();
         };
 
@@ -94,13 +81,13 @@ home.controller('HomeController', [
         $ionicModal.fromTemplateUrl('js/angular-app/modules/modals/filters.html', {
             scope: $scope,
             animation: 'slide-in-up'
-        }).then(function (modal) {
+        }).then(function(modal) {
             $scope.modal = modal;
         });
-        $scope.openModal = function () {
+        $scope.openModal = function() {
             $scope.modal.show();
         };
-        $scope.closeModal = function () {
+        $scope.closeModal = function() {
             $scope.modal.hide();
             $scope.photos = [];
             $scope.status.showRetry = false;
@@ -109,15 +96,15 @@ home.controller('HomeController', [
             $ionicScrollDelegate.scrollTop();
         };
 
-        $ionicPlatform.ready(function () {
+        $ionicPlatform.ready(function() {
             console.log("ionic platform ready!");
             $scope.geoLocation();
         });
 
         $scope.photos = [];
-        $scope.status.showRetry = true;
         $scope.status.showRetry = false;
-        $timeout(function () {
+        $timeout(function() {
+            $ionicLoading.hide();
             $scope.status.showRetry = true;
         }, 6000);
     }]);
