@@ -7,14 +7,15 @@
             </ui-gmap-google-map>
         </div>
         <div class="image-slider">
-            <ion-slides pager="false">
+            <ion-slides slider="data.slider">
                 <ion-slide-page ng-repeat="photo in photos">
                     <div class="photo-slide">
                         <a class="item item-thumbnail-left" href="#/tab/home/photo/{{photo.id}}">
                             <img ng-src="{{photo.image_url}}">
-                            <h2>{{photo.name | limitTo: 20}}</h2>
-                            <p class="distance"><i class="ionicons ion-navigate"></i> {{distance(photo.latitude, photo.longitude) | number:1}}
-                                kilometers
+                            <h2>{{$index + 1}}. {{photo.name | limitTo: 20}}</h2>
+                            <p class="author">{{photo.user.fullname | limitTo: 20}}</p>
+                            <p class="distance">{{distance(photo.latitude, photo.longitude) | number:1}}
+                                km away
                             </p>
                         </a>
                     </div>

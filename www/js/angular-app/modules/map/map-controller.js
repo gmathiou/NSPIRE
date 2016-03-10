@@ -1,4 +1,4 @@
-var map = angular.module('map', ['ionic', 'ngCordova', '500px.service'])
+var map = angular.module('map', ['ionic', 'ngCordova', '500px.service', 'common.services'])
 
 map.controller('MapController', [
     '$rootScope',
@@ -12,10 +12,16 @@ map.controller('MapController', [
     '$ionicModal',
     '$ionicScrollDelegate',
     '$ionicSlideBoxDelegate',
-    function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate) {
+    'AppService',
+    function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate, AppService) {
 
         $scope.markers = [];
-        
+
+        $scope.data = {};
+        $scope.$watch('data.slider', function(nv, ov) {
+            $scope.slider = $scope.data.slider;
+        })
+
         $scope.initMap = function() {
             $ionicLoading.show();
             HomeService.getLocation().then(function(position) {
@@ -67,6 +73,11 @@ map.controller('MapController', [
                 $scope.markers.push(marker);
             };
             $ionicSlideBoxDelegate.update();
+        };
+
+        $scope.distance = function(lat, lon) {
+            var distance = AppService.getDistanceFromLatLonInKm(lat, lon, HomeService.myPosition.coords.latitude, HomeService.myPosition.coords.longitude);
+            return distance;
         };
 
         $scope.initMap();
