@@ -1,15 +1,25 @@
 <ion-view class="map-page">
     <ion-nav-title>Map</ion-nav-title>
-    <ion-nav-buttons side="right">
-        <button class="button button-clear button-header-light">
-            <i class="ionicons ion-funnel"></i>
-        </button>
-    </ion-nav-buttons>
     <ion-content>
         <div class="map-wrapper">
             <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-                <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+                <ui-gmap-markers models="markers" idKey="'uid'" icon="'image'" coords="'self'"></ui-gmap-markers>
             </ui-gmap-google-map>
+        </div>
+        <div class="image-slider">
+            <ion-slides pager="false">
+                <ion-slide-page ng-repeat="photo in photos">
+                    <div class="photo-slide">
+                        <a class="item item-thumbnail-left" href="#/tab/home/photo/{{photo.id}}">
+                            <img ng-src="{{photo.image_url}}">
+                            <h2>{{photo.name | limitTo: 20}}</h2>
+                            <p class="distance"><i class="ionicons ion-navigate"></i> {{distance(photo.latitude, photo.longitude) | number:1}}
+                                kilometers
+                            </p>
+                        </a>
+                    </div>
+                </ion-slide-page>
+            </ion-slides>
         </div>
     </ion-content>
 </ion-view>

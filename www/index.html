@@ -8,39 +8,42 @@
 
     <title>Nspire app</title>
 
-    <link rel="stylesheet" href="css/ionic.app.css?ionicCachebuster=70659" type="text/css" media="all">
+    <link rel="stylesheet" href="css/ionic.app.css" type="text/css" media="all">
     <link href="https://fonts.googleapis.com/css?family=Open%20Sans%3A400%2C700%2C800%2C600%2C300%7COpen%20Sans%20Condensed%3A300%2C700&amp;subset=latin%2Cgreek" rel="stylesheet" type="text/css">
-</head>
+
+<script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script></head>
 
 <body ng-app="starter">
-    <ion-nav-bar class="bar-stable bar-black" >
+    <ion-nav-bar class="bar-stable bar-black">
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
     <ion-nav-view></ion-nav-view>
 
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js?ionicCachebuster=70659"></script>
-    <script src="//maps.googleapis.com/maps/api/js?ionicCachebuster=70659"></script>
-    <script src="lib/angular-google-maps/dist/angular-google-maps.min.js?ionicCachebuster=70659"></script>
-    <script src="lib/lodash/dist/lodash.min.js?ionicCachebuster=70659"></script>
-    <script src="lib/angular-simple-logger/dist/angular-simple-logger.js?ionicCachebuster=70659"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js"></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="lib/lodash/dist/lodash.min.js"></script>
+    <script src="lib/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="lib/ionic-service-core/ionic-core.js"></script>
+    <script src="lib/ionic-service-analytics/ionic-analytics.js"></script>
 
-    <script src="js/angular-app/app.js?ionicCachebuster=70659"></script>
-    <script src="js/angular-app/modules/tabs/tabs-controller.js?ionicCachebuster=70659"></script>
-    <script src="js/angular-app/modules/home/home-controller.js?ionicCachebuster=70659"></script>
-    <script src="js/angular-app/modules/home/home-service.js?ionicCachebuster=70659"></script>
-    <script src="js/angular-app/modules/external-services/500px-key.js?ionicCachebuster=70659"></script>
-    <script src="js/angular-app/modules/external-services/500px-service.js?ionicCachebuster=70659"></script>
+    <script src="js/angular-app/app.js"></script>
+    <script src="js/angular-app/modules/tabs/tabs-controller.js"></script>
+    <script src="js/angular-app/modules/home/home-controller.js"></script>
+    <script src="js/angular-app/modules/home/home-service.js"></script>
+    <script src="js/angular-app/modules/external-services/500px-key.js"></script>
+    <script src="js/angular-app/modules/external-services/500px-service.js"></script>
 
-    <script src="js/angular-app/modules/photo-single/photo-single-controller.js?ionicCachebuster=70659"></script>
-    <script src="js/angular-app/modules/photo-single/photo-single-service.js?ionicCachebuster=70659"></script>
+    <script src="js/angular-app/modules/photo-single/photo-single-controller.js"></script>
+    <script src="js/angular-app/modules/photo-single/photo-single-service.js"></script>
     
     <script src="js/angular-app/modules/map/map-controller.js"></script>
     <script src="js/angular-app/modules/map/map-service.js"></script>
     
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js?ionicCachebuster=70659"></script>
-    <script src="cordova.js?ionicCachebuster=70659"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
 </body>
 
 </html>

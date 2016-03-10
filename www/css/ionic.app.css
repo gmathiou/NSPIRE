@@ -9956,9 +9956,22 @@ a.button {
     background-repeat: no-repeat;
     background-position: center, center; }
 
-.map-page .map-wrapper {
-  width: 100%;
-  height: 100%; }
-  .map-page .map-wrapper .angular-google-map, .map-page .map-wrapper .angular-google-map-container {
-    height: 100%;
+.map-page {
+  background: #111; }
+  .map-page .map-wrapper, .map-page .angular-google-map, .map-page .angular-google-map-container {
+    width: 100%;
+    height: 100%; }
+  .map-page .image-slider {
+    position: absolute;
+    bottom: 10px;
+    overflow: hidden;
+    height: 120px;
     width: 100%; }
+    .map-page .image-slider .photo-slide {
+      background: #fff;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+      overflow: hidden;
+      clear: both;
+      margin: 10px;
+      padding: 5px; }

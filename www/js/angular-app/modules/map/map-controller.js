@@ -11,11 +11,13 @@ map.controller('MapController', [
     '$ionicPlatform',
     '$ionicModal',
     '$ionicScrollDelegate',
-    function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate) {
+    '$ionicSlideBoxDelegate',
+    function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate) {
 
         $scope.markers = [];
-
+        
         $scope.initMap = function() {
+            $ionicLoading.show();
             HomeService.getLocation().then(function(position) {
                 console.log(position);
                 $scope.map = {
@@ -24,7 +26,14 @@ map.controller('MapController', [
                         longitude: position.coords.longitude
                     },
                     zoom: 12,
-                    options: {}
+                    options: {
+                        mapTypeControl: false,
+                        panControl: false,
+                        scaleControl: false,
+                        scrollwheel: false,
+                        streetViewControl: false,
+                        zoomControl: false
+                    }
                 };
                 $scope.loadPhotos();
             }, function(error) {
@@ -43,20 +52,21 @@ map.controller('MapController', [
                     $scope.initMarkers($scope.photos);
                 });
             }
+            // $ionicSlideBoxDelegate.update();
+            $ionicLoading.hide();
         };
 
         $scope.initMarkers = function(photos) {
             for (var i = 0; i < photos.length; i++) {
                 var marker = {
-                    id: photos[i].id,
-                    coords: {
-                        latitude: photos[i].latitude,
-                        longitude: photos[i].longitude
-                    },
-                    options: { draggable: false },
+                    uid: photos[i].id,
+                    latitude: photos[i].latitude,
+                    longitude: photos[i].longitude,
+                    image: "img/marker.png"
                 };
                 $scope.markers.push(marker);
-            }
+            };
+            $ionicSlideBoxDelegate.update();
         };
 
         $scope.initMap();

@@ -4,6 +4,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'home', 'photo_single
 
 app.run(function($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function() {
+
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
