@@ -16,11 +16,25 @@ map.controller('MapController', [
     function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate, AppService) {
 
         $scope.markers = [];
-
+        $scope.photos = [];
         $scope.data = {};
+
         $scope.$watch('data.slider', function(nv, ov) {
+            if (!nv) {
+                return;
+            }
             $scope.slider = $scope.data.slider;
-        })
+            $scope.slider.on('slideChangeEnd', $scope.slideChanged);
+        });
+
+        $scope.slideChanged = function(slider) {
+            var photo = $scope.photos[slider.activeIndex];
+            $scope.map.center = {
+                latitude: photo.latitude,
+                longitude: photo.longitude
+            };
+            $scope.$apply();
+        }
 
         $scope.initMap = function() {
             $ionicLoading.show();
@@ -31,6 +45,7 @@ map.controller('MapController', [
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     },
+                    pan: true,
                     zoom: 12,
                     options: {
                         mapTypeControl: false,
@@ -68,11 +83,22 @@ map.controller('MapController', [
                     uid: photos[i].id,
                     latitude: photos[i].latitude,
                     longitude: photos[i].longitude,
-                    image: "img/marker.png"
+                    photo: photos[i],
+                    index: i
+                    // image: "img/marker.png"
                 };
                 $scope.markers.push(marker);
             };
             $ionicSlideBoxDelegate.update();
+        };
+
+        $scope.markerTouched = function(marker, event, instance) {
+            $scope.slider.slideTo(instance.index);
+            $scope.map.center = {
+                latitude: instance.photo.latitude,
+                longitude: instance.photo.longitude
+            };
+            $scope.$apply();
         };
 
         $scope.distance = function(lat, lon) {

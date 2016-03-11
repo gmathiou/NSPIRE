@@ -2,12 +2,12 @@
     <ion-nav-title>Map</ion-nav-title>
     <ion-content>
         <div class="map-wrapper">
-            <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-                <ui-gmap-markers models="markers" idKey="'uid'" icon="'image'" coords="'self'"></ui-gmap-markers>
+            <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options" pan="true">
+                <ui-gmap-markers models="markers" idKey="'uid'" icon="'image'" coords="'self'" click="markerTouched"></ui-gmap-markers>
             </ui-gmap-google-map>
         </div>
         <div class="image-slider">
-            <ion-slides slider="data.slider">
+            <ion-slides slider="data.slider" move="changed()">
                 <ion-slide-page ng-repeat="photo in photos">
                     <div class="photo-slide">
                         <a class="item item-thumbnail-left" href="#/tab/home/photo/{{photo.id}}">
