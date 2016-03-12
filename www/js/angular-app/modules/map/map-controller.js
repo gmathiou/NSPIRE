@@ -14,8 +14,6 @@ map.controller('MapController', [
     '$ionicSlideBoxDelegate',
     'AppService',
     function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate, AppService) {
-
-        $scope.markers = [];
         $scope.photos = [];
         $scope.data = {};
 
@@ -78,6 +76,7 @@ map.controller('MapController', [
         };
 
         $scope.initMarkers = function(photos) {
+            $scope.markers = [];
             for (var i = 0; i < photos.length; i++) {
                 var marker = {
                     uid: photos[i].id,
@@ -105,6 +104,12 @@ map.controller('MapController', [
             var distance = AppService.getDistanceFromLatLonInKm(lat, lon, HomeService.myPosition.coords.latitude, HomeService.myPosition.coords.longitude);
             return distance;
         };
+
+        $rootScope.$on('tabChanged', function(event, tabIndex) {
+            if (tabIndex == 2) {
+                $scope.loadPhotos();
+            }
+        });
 
         $scope.initMap();
     }]);

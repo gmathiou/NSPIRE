@@ -1,19 +1,19 @@
 <ion-tabs class="tabs-icon-top tabs-background-black tabs-color-light">
 
   <!-- Home Tab -->
-  <ion-tab title="Explore" icon-off="ionicons ion-ios-home" icon-on="ionicons ion-ios-home" href="#/tab/home">
+  <ion-tab title="Explore" icon-off="ionicons ion-ios-home" icon-on="ionicons ion-ios-home" href="#/tab/home"  on-select="onTabSelected(1)">
     <ion-nav-view name="tab-home"></ion-nav-view>
   </ion-tab>
   
-  <ion-tab title="Map" icon-off="ionicons ion-map" icon-on="ionicons ion-map" href="#/tab/map">
+  <ion-tab title="Map" icon-off="ionicons ion-map" icon-on="ionicons ion-map" href="#/tab/map" on-select="onTabSelected(2)">
     <ion-nav-view name="tab-map"></ion-nav-view>
   </ion-tab>
   
-  <ion-tab title="Favorites" icon-off="ionicons ion-android-favorite-outline" icon-on="ionicons ion-android-favorite" href="#/tab/favs">
+  <ion-tab title="Favorites" icon-off="ionicons ion-android-favorite-outline" icon-on="ionicons ion-android-favorite" href="#/tab/favs"  on-select="onTabSelected(3)">
     <ion-nav-view name="tab-favs"></ion-nav-view>
   </ion-tab>
   
-  <ion-tab title="Settings" icon-off="ionicons ion-ios-gear-outline" icon-on="ionicons ion-ios-gear" href="#/tab/settings">
+  <ion-tab title="Settings" icon-off="ionicons ion-ios-gear-outline" icon-on="ionicons ion-ios-gear" href="#/tab/settings"  on-select="onTabSelected(4)">
     <ion-nav-view name="tab-settings"></ion-nav-view>
   </ion-tab>
 </ion-tabs>
