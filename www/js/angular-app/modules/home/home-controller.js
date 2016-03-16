@@ -52,15 +52,13 @@ home.controller('HomeController', [
 
         $scope.loadMoreData = function() {
             console.log("Load more data");
-            if (!HomeService.myPosition.coords) {
+            if (!HomeService.myPosition.coords || ($scope.modal && $scope.modal._isShown == true)) {
                 return;
             }
             $scope.status.currentPage = $scope.status.currentPage + 1;
             HomeService.status.currentPage = $scope.status.currentPage;
             $scope.loadPhotos();
         };
-
-
 
         $ionicModal.fromTemplateUrl('js/angular-app/modules/modals/filters.html', {
             scope: $scope,
@@ -72,12 +70,13 @@ home.controller('HomeController', [
             $scope.modal.show();
         };
         $scope.closeModal = function() {
+            $ionicScrollDelegate.scrollTop();
             $scope.modal.hide();
-            $scope.photos = [];
             $scope.status.showRetry = false;
             $ionicLoading.show();
+            $scope.status.currentPage = 1;
+            HomeService.status.currentPage = 1;
             $scope.loadPhotos();
-            $ionicScrollDelegate.scrollTop();
         };
 
         $ionicPlatform.ready(function() {

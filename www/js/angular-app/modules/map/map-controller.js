@@ -16,6 +16,8 @@ map.controller('MapController', [
     function($rootScope, $scope, HomeService, FiveHundredService, $cordovaGeolocation, $ionicLoading, $timeout, $ionicPlatform, $ionicModal, $ionicScrollDelegate, $ionicSlideBoxDelegate, AppService) {
         $scope.photos = [];
         $scope.data = {};
+        $scope.map = {};
+        $scope.map.markers = [];
 
         $scope.$watch('data.slider', function(nv, ov) {
             if (!nv) {
@@ -31,8 +33,24 @@ map.controller('MapController', [
                 latitude: photo.latitude,
                 longitude: photo.longitude
             };
+            $scope.lightUpMarker(photo);
             $scope.$apply();
-        }
+        };
+
+        $scope.lightUpMarker = function(photo) {
+            $scope.map.markers = [];
+            for (var i = 0; i < $scope.photos.length; i++) {
+                var marker = {
+                    uid: $scope.photos[i].id,
+                    latitude: $scope.photos[i].latitude,
+                    longitude: $scope.photos[i].longitude,
+                    photo: $scope.photos[i],
+                    index: i,
+                    icon: $scope.photos[i].id == photo.id ? "img/big-marker-active.png" : "img/big-marker.png"
+                };
+                $scope.map.markers.push(marker);
+            }
+        };
 
         $scope.initMap = function() {
             $ionicLoading.show();
@@ -54,6 +72,7 @@ map.controller('MapController', [
                         zoomControl: false
                     }
                 };
+                $scope.map.control = {};
                 $scope.loadPhotos();
             }, function(error) {
                 console.error("Geolocation failed");
@@ -71,22 +90,27 @@ map.controller('MapController', [
                     $scope.initMarkers($scope.photos);
                 });
             }
-            // $ionicSlideBoxDelegate.update();
             $ionicLoading.hide();
         };
 
         $scope.initMarkers = function(photos) {
-            $scope.markers = [];
+            $scope.map.markers = [];
             for (var i = 0; i < photos.length; i++) {
                 var marker = {
                     uid: photos[i].id,
                     latitude: photos[i].latitude,
                     longitude: photos[i].longitude,
                     photo: photos[i],
-                    index: i
-                    // image: "img/marker.png"
+                    index: i,
+                    icon: i == 0 ? "img/big-marker-active.png" : "img/big-marker.png"
                 };
-                $scope.markers.push(marker);
+                $scope.map.markers.push(marker);
+                if (i == 0) {
+                    $scope.map.center = {
+                        latitude: photos[i].latitude,
+                        longitude: photos[i].longitude
+                    };
+                }
             };
             $ionicSlideBoxDelegate.update();
         };
@@ -107,7 +131,7 @@ map.controller('MapController', [
 
         $rootScope.$on('tabChanged', function(event, tabIndex) {
             if (tabIndex == 2) {
-                $scope.loadPhotos();
+                $scope.initMap();
             }
         });
 

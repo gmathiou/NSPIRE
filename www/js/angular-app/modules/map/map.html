@@ -1,9 +1,9 @@
 <ion-view class="map-page">
     <ion-nav-title>Map</ion-nav-title>
     <ion-content>
-        <div class="map-wrapper">
+        <div class="map-wrapper" ng-cloak ng-if="map.markers.length > 10 && photos.length > 1">
             <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options" pan="true">
-                <ui-gmap-markers models="markers" idKey="'uid'" icon="'image'" coords="'self'" click="markerTouched"></ui-gmap-markers>
+                <ui-gmap-markers ng-if="map.markers" models="map.markers" idKey="'uid'" icon="'icon'" coords="'self'" click="markerTouched"></ui-gmap-markers>
             </ui-gmap-google-map>
         </div>
         <div class="image-slider">
