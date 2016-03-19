@@ -39,14 +39,20 @@ map.controller('MapController', [
 
         $scope.lightUpMarker = function(photo) {
             $scope.map.markers = [];
-            for (var i = 0; i < $scope.photos.length; i++) {
+            for (var i = $scope.photos.length - 1; i >=0 ; i--) {
+                var icon = $scope.photos[i].id == photo.id ? "img/big-marker-active.png" : "img/big-marker.png";
                 var marker = {
                     uid: $scope.photos[i].id,
                     latitude: $scope.photos[i].latitude,
                     longitude: $scope.photos[i].longitude,
                     photo: $scope.photos[i],
                     index: i,
-                    icon: $scope.photos[i].id == photo.id ? "img/big-marker-active.png" : "img/big-marker.png"
+                    options: {
+                        icon: {
+                            url: icon,
+                            scaledSize: { height: 22, width: 15 }
+                        }
+                    }
                 };
                 $scope.map.markers.push(marker);
             }
@@ -81,7 +87,8 @@ map.controller('MapController', [
         };
 
         $scope.loadPhotos = function() {
-            if (HomeService.photos.length > 0) {
+            console.log("Start loading photos for map");
+            if (HomeService.photos && HomeService.photos.length > 0) {
                 $scope.photos = HomeService.photos;
                 $scope.initMarkers($scope.photos);
             } else {
@@ -94,15 +101,23 @@ map.controller('MapController', [
         };
 
         $scope.initMarkers = function(photos) {
+            console.log("Init markers");
             $scope.map.markers = [];
-            for (var i = 0; i < photos.length; i++) {
+
+            for (var i = photos.length - 1; i >= 0; i--) {
+                var icon = i == 0 ? "img/big-marker-active.png" : "img/big-marker.png";
                 var marker = {
                     uid: photos[i].id,
                     latitude: photos[i].latitude,
                     longitude: photos[i].longitude,
                     photo: photos[i],
                     index: i,
-                    icon: i == 0 ? "img/big-marker-active.png" : "img/big-marker.png"
+                    options: {
+                        icon: {
+                            url: icon,
+                            scaledSize: { height: 22, width: 15 }
+                        }
+                    }
                 };
                 $scope.map.markers.push(marker);
                 if (i == 0) {
@@ -116,6 +131,7 @@ map.controller('MapController', [
         };
 
         $scope.markerTouched = function(marker, event, instance) {
+            console.log("marker touched");
             $scope.slider.slideTo(instance.index);
             $scope.map.center = {
                 latitude: instance.photo.latitude,
